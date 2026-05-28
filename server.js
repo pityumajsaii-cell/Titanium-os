@@ -1,24 +1,20 @@
-require("dotenv").config();
-const express = require("express");
-const bus = require("./core/bus");
+const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 
-app.post("/event", async (req, res) => {
-  await bus.emit({ id: req.body.id || Date.now(), type: req.body.event, payload: req.body.payload });
-  res.json({ ok: true });
+// Webhook végpont a pénzmozgáshoz
+app.post('/webhook', (req, res) => {
+    console.log("Tranzakció érkezett:", req.body);
+    res.status(200).send({ status: 'success' });
 });
 
-app.listen(3000, () => console.log("🚀 API Running :3000"));
-app.post("/score", async (req,res)=>{
-  const { scoreLead, decide } = require("./ai/engine");
-  const score = await scoreLead(req.body.payload);
-  const decision = await decide(score);
-  res.json({ score, decision });
+// Egészségügyi ellenőrzés
+app.get('/health', (req, res) => {
+    res.status(200).send({ status: 'ok' });
 });
 
-app.post("/checkout", async (req,res)=>{
-  const { createCheckout } = require("./payments/stripe");
-  const url = await createCheckout(req.body.email, req.body.score);
-  res.json({ url });
+app.listen(PORT, () => {
+    console.log(`Titanium Engine fut a ${PORT} porton`);
 });
