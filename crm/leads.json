@@ -1,0 +1,14 @@
+[
+  {
+    "email": "test@test.com",
+    "score": 105,
+    "decision": "CLOSE_NOW",
+    "createdAt": "2026-05-28T10:57:25.013Z"
+  },
+  {
+    "email": "teszt@test.com",
+    "score": 80,
+    "decision": "CLOSE_NOW",
+    "createdAt": "2026-05-28T12:39:52.574Z"
+  }
+]
